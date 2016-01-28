@@ -1,4 +1,4 @@
-var home = function(req, res) {
+var home = function (req, res) {
   res.render("home", {"links": [
     "/cats",
     "/cats/new",
