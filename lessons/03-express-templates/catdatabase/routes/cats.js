@@ -1,4 +1,3 @@
-var path = require("path");
 var db = require("../fakeDatabase");
 
 var colors = ["black", "gray", "white", "orange"];
