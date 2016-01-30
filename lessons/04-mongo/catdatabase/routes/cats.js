@@ -1,4 +1,4 @@
-var db = require("../fakeDatabase");
+var Cat = require("../models/catModel.js");
 
 var colors = ["black", "gray", "white", "orange"];
 var names = ["Gizmo", "Mittens", "Lucy", "Bella", "Jasper"];
@@ -14,18 +14,20 @@ var randChoice = function (list) {
 };
 
 cats.new = function (req, res) {
-  var cat = {
+  var cat = Cat({
     name: randChoice(names),
     age: randInt(2, 16),
     colors: []
-  };
+  });
   for (var i = 0; i < randInt(2, 3); ++i) {
     var color = randChoice(colors);
     if (cat.colors.indexOf(color) === -1) {
       cat.colors.push(color);
     }
   }
-  db.add(cat);
+  cat.save(function (err, cat) {
+    if (err) console.log(err);
+  });
   res.render("cats", {
     message: "We've adopted a new cat!",
     cats: [cat]
@@ -33,48 +35,36 @@ cats.new = function (req, res) {
 };
 
 cats.delete = function (req, res) {
-  var message;
-  var cats;
-  if (db.data.length > 0) {
-    db.data.sort(function (a, b) {
-      return b.age - a.age;
+  Cat.findOneAndRemove({}, {sort: {age: -1}}, function (err, cat) {
+    if (err) return console.log(err);
+    res.render("cats", {
+      message: cat ? "We've lost our oldest cat..." : "There are no cats left...",
+      cats: cat ? [cat] : null
     });
-    message = "We've lost our oldest cat..."
-    cats = db.remove(0);
-  }
-  else {
-    message = "There are no cats left..."
-    cats = null;
-  }
-  res.render("cats", {
-    message: message,
-    cats: cats
   });
 };
 
 cats.list = function (req, res) {
   var color;
-  var message;
-  var cats;
-  db.data.sort(function (a, b) {
-    return b.age - a.age;
-  });
   if (req.params.color) {
     color = req.params.color.toLowerCase();
-    message = "Cats sorted by age, with " + color + " coloring:";
-    cats = db.data.filter(function (val) {
-      return val.colors.indexOf(color) !== -1;
+    Cat.find({colors: color}).sort({age: -1}).exec(function (err, cats) {
+      if (err) return console.log(err);
+      res.render("cats", {
+        message: "Cats sorted by age, with " + color + " coloring:",
+        cats: cats
+      });
     });
   }
   else {
-    color = null;
-    message = "Cats sorted by age:";
-    cats = db.data;
+    Cat.find({}).sort({age: -1}).exec(function (err, cats) {
+      if (err) return console.log(err);
+      res.render("cats", {
+        message: "Cats sorted by age",
+        cats: cats
+      });
+    });
   }
-  res.render("cats", {
-    message: message,
-    cats: cats
-  });
 };
 
 module.exports = cats;
