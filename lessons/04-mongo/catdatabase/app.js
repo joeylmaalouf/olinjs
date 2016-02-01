@@ -20,6 +20,7 @@ app.get("/cats", cats.list);
 app.get("/cats/new", cats.new);
 app.get("/cats/delete/old", cats.delete);
 app.get("/cats/bycolor/:color", cats.list);
+app.get("/cats/between/:age1/:age2", cats.list);
 
 app.listen(PORT, function() {
   console.log("Application running on port:", PORT);
