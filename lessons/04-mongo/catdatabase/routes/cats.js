@@ -45,13 +45,23 @@ cats.delete = function (req, res) {
 };
 
 cats.list = function (req, res) {
-  var color;
   if (req.params.color) {
-    color = req.params.color.toLowerCase();
+    var color = req.params.color.toLowerCase();
     Cat.find({colors: color}).sort({age: -1}).exec(function (err, cats) {
       if (err) return console.log(err);
       res.render("cats", {
         message: "Cats sorted by age, with " + color + " coloring:",
+        cats: cats
+      });
+    });
+  }
+  else if (req.params.age1 && req.params.age2) {
+    var age1 = Number(req.params.age1);
+    var age2 = Number(req.params.age2);
+    Cat.find({age: {$gte: age1, $lte: age2}}).sort({age: -1}).exec(function (err, cats) {
+      if (err) return console.log(err);
+      res.render("cats", {
+        message: "Cats sorted by age, between " + age1 + " and " + age2 + " years old:",
         cats: cats
       });
     });

@@ -6,7 +6,8 @@ var home = function (req, res) {
     "/cats/bycolor/black",
     "/cats/bycolor/gray",
     "/cats/bycolor/white",
-    "/cats/bycolor/orange"
+    "/cats/bycolor/orange",
+    "/cats/between/4/10"
   ]});
 };
 
