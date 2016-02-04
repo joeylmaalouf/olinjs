@@ -6,4 +6,4 @@ var catSchema = mongoose.Schema({
   colors: [String]
 });
 
-module.exports = mongoose.model("Cat", catSchema, "cats");
+module.exports = mongoose.model("Cat", catSchema, "cats"); //cats is unnecessary as the collection name will be the pluralized lowercase first paramater. 
