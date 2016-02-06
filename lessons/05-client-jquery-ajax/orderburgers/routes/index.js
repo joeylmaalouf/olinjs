@@ -16,7 +16,7 @@ routes.ingredients = function (req, res) {
     var processed = [];
     data.forEach(function (element) {
       element = element.toObject();
-      element.price = "$" + element.price.toFixed(2);
+      element.price = element.price.toFixed(2);
       processed.push(element);
     });
     res.render("ingredients", {
@@ -39,6 +39,14 @@ routes.setInStock = function (req, res) {
   });
 };
 
+routes.addIngredient = function (req, res) {
+  req.body.inStock = true;
+  Ingredient.create(req.body, function (err, data) {
+    if (err) return console.log(err);
+    res.json(data.toObject());
+  });
+};
+
 routes.editIngredient = function (req, res) {
   if (req.body.name || req.body.price) {
     Ingredient.findById(req.body.id, function (err, data) {
@@ -47,7 +55,7 @@ routes.editIngredient = function (req, res) {
         data.name = req.body.name;
       }
       if (req.body.price) {
-        data.price = Number(req.body.price).toFixed(2);
+        data.price = req.body.price;
       }
       data.save(function (err) {
         if (err) return console.log(err);
@@ -58,6 +66,13 @@ routes.editIngredient = function (req, res) {
   else {
     res.end("");
   }
+};
+
+routes.removeIngredient = function (req, res) {
+  Ingredient.remove({"_id": req.body.id}, function (err) {
+    if (err) return console.log(err);
+    res.end(req.body.id);
+  });
 };
 
 module.exports = routes;
