@@ -28,9 +28,9 @@ app.get("/kitchen", index.kitchen);
 
 app.post("/setOutOfStock", index.setOutOfStock);
 app.post("/setInStock", index.setInStock);
+app.post("/editIngredient", index.editIngredient);
 /*
 app.post("/addIngredient", index.addIngredient);
-app.post("/editIngredient", index.editIngredient);
 app.post("/placeOrder", index.placeOrder);
 app.post("/completeOrder", index.completeOrder);
 */

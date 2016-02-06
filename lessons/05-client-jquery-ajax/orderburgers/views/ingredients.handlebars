@@ -13,7 +13,7 @@
         <td>
           Name: <input type="text" id="name">
           Price: $<input type="text" id="price">
-          <input type="button" class="editIngredient" value="Save edits">
+          <input type="button" value="Save edits" onclick="editIngredient('{{this._id}}')">
         </td>
       </tr>
   {{/each}}
