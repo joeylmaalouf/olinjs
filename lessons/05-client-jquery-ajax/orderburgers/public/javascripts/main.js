@@ -81,3 +81,44 @@ var removeIngredient = function (id) {
     console.log("Error: " + data);
   });
 };
+
+var updateOrder = function () {
+  var sum = 0;
+  $("#ingredients").find("tr").each(function () {
+    if ($(this).find("input:checkbox")[0].checked) {
+      sum += Number($(this).find(".price").html());
+    }
+  });
+  $("#price").find(".price").html(sum.toFixed(2));
+};
+
+var placeOrder = function() {
+  var name = $("#name").val();
+  var ingredients = [];
+  var sum = 0;
+  $("#ingredients").find("tr").each(function () {
+    if ($(this).find("input:checkbox")[0].checked) {
+      ingredients.push($(this).find(".name").html());
+      sum += Number($(this).find(".price").html());
+    }
+  });
+  if (ingredients.length > 0) {
+    $.post("/placeOrder", {
+      name: name,
+      ingredients: ingredients,
+      price: sum
+    }).done(function (data, status) {
+      $("#message").html(data.name + ", your order has been placed! Your total is $" + data.price.toFixed(2) + ".");
+      $("#price").find(".price").html("0.00");
+      $("#ingredients").find("tr").each(function () {
+        $(this).find("input:checkbox").prop("checked", false);
+      });
+    }).error(function (data, status) {
+      console.log("Error: " + data);
+    });
+  }
+};
+
+var completeOrder = function (id) {
+  //
+};

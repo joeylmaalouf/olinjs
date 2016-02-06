@@ -4,6 +4,16 @@ var Order = require("../models/orderModel");
 
 var routes = {};
 
+var formatPrices = function (prices) {
+  var processed = [];
+  prices.forEach(function (element) {
+    element = element.toObject();
+    element.price = element.price.toFixed(2);
+    processed.push(element);
+  });
+  return processed;
+};
+
 routes.home = function (req, res) {
   res.render("home", {
     "text": "Welcome to Jessica's Burgers!"
@@ -13,14 +23,27 @@ routes.home = function (req, res) {
 routes.ingredients = function (req, res) {
   Ingredient.find({}, null, {"sort": {"price": -1}}, function(err, data) {
     if (err) return console.log(err);
-    var processed = [];
-    data.forEach(function (element) {
-      element = element.toObject();
-      element.price = element.price.toFixed(2);
-      processed.push(element);
-    });
     res.render("ingredients", {
-      "ingredients": processed
+      "ingredients": formatPrices(data)
+    });
+  });
+};
+
+routes.order = function (req, res) {
+  Ingredient.find({}, null, {"sort": {"price": -1}}, function(err, data) {
+    if (err) return console.log(err);
+    var processed = [];
+    res.render("order", {
+      "ingredients": formatPrices(data)
+    });
+  });
+};
+
+routes.kitchen = function (req, res) {
+  Order.find({}, null, null, function(err, data) {
+    if (err) return console.log(err);
+    res.render("kitchen", {
+      "orders": data
     });
   });
 };
@@ -73,6 +96,17 @@ routes.removeIngredient = function (req, res) {
     if (err) return console.log(err);
     res.end(req.body.id);
   });
+};
+
+routes.placeOrder = function (req, res) {
+  Order.create(req.body, function (err, data) {
+    if (err) return console.log(err);
+    res.json(data.toObject());
+  });
+};
+
+routes.completeOrder = function (req, res) {
+  //
 };
 
 module.exports = routes;

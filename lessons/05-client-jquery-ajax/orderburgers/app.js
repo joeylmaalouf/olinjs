@@ -17,24 +17,21 @@ app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", index.home);
 app.get("/ingredients", index.ingredients);
-/*
 app.get("/order", index.order);
 app.get("/kitchen", index.kitchen);
-*/
 
 app.post("/setOutOfStock", index.setOutOfStock);
 app.post("/setInStock", index.setInStock);
 app.post("/addIngredient", index.addIngredient);
 app.post("/editIngredient", index.editIngredient);
 app.post("/removeIngredient", index.removeIngredient);
-/*
 app.post("/placeOrder", index.placeOrder);
 app.post("/completeOrder", index.completeOrder);
-*/
+
 app.listen(PORT, function() {
   console.log("Application running on port: " + PORT);
 });
