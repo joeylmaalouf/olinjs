@@ -120,5 +120,11 @@ var placeOrder = function() {
 };
 
 var completeOrder = function (id) {
-  //
+  $.post("/completeOrder", {
+    id: id
+  }).done(function (data, status) {
+    $("#" + id).remove();
+  }).error(function (data, status) {
+    console.log("Error: " + data);
+  });
 };

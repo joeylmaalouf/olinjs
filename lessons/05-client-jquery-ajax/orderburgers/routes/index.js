@@ -43,7 +43,7 @@ routes.kitchen = function (req, res) {
   Order.find({}, null, null, function(err, data) {
     if (err) return console.log(err);
     res.render("kitchen", {
-      "orders": data
+      "orders": formatPrices(data)
     });
   });
 };
@@ -106,7 +106,10 @@ routes.placeOrder = function (req, res) {
 };
 
 routes.completeOrder = function (req, res) {
-  //
+  Order.remove({"_id": req.body.id}, function (err) {
+    if (err) return console.log(err);
+    res.end(req.body.id);
+  });
 };
 
 module.exports = routes;
