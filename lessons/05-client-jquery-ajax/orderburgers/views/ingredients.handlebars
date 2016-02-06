@@ -1,0 +1,28 @@
+<h3>Ingredient List</h3>
+<table id="ingredients">
+  {{#each ingredients}}
+  {{#if this.inStock}}
+  <tr id="{{this._id}}" class="inStock">
+    <td>{{this.name}}: ${{this.price}}</td>
+    <td><input type="button" value="Mark as out-of-stock" onclick="setOutOfStock('{{this._id}}');"></td>
+  {{else}}
+  <tr id="{{this._id}}" class="outOfStock">
+    <td style="text-decoration: line-through">{{this.name}}: ${{this.price}}</td>
+    <td><input type="button" value="Mark as in-stock" onclick="setInStock('{{this._id}}');"></td>
+  {{/if}}
+    <td>
+      Name: <input type="text" id="name">
+      Price: $<input type="text" id="price">
+      <input type="button" value="Save edits" onclick="editIngredient('{{this._id}}');">
+      <input type="button" value="Delete" onclick="removeIngredient('{{this._id}}');">
+    </td>
+  </tr>
+  {{/each}}
+</table>
+<hr>
+<h3>Add an Ingredient</h3>
+<div id="addIngredient">
+  Name: <input type="text" id="name">
+  Price: $<input type="text" id="price">
+  <input type="button" value="Add" onclick="addIngredient();">
+</div>

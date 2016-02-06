@@ -1,0 +1,11 @@
+<h3>Current Orders</h3>
+<table id="orders">
+  {{#each orders}}
+  <tr id="{{this._id}}">
+    <td>{{this.name}}</td>
+    <td>${{this.price}}</td>
+    <td>{{#each this.ingredients}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</td>
+    <td><input type="button" value="Complete" onclick="completeOrder('{{this._id}}');"></td>
+  </tr>
+  {{/each}}
+</table>
