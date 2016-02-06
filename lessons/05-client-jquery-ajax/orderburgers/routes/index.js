@@ -11,7 +11,7 @@ routes.home = function (req, res) {
 };
 
 routes.ingredients = function (req, res) {
-  Ingredient.find({}, function(err, data) {
+  Ingredient.find({}, null, {"sort": {"price": -1}}, function(err, data) {
     if (err) return console.log(err);
     var processed = [];
     data.forEach(function (element) {
