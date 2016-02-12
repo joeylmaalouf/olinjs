@@ -1,0 +1,35 @@
+<div id="logIn">
+  Username: <input type="text" id="username">
+  <br><input type="button" value="Log In" onclick="logIn();">
+</div>
+<div id="logOut" style="display: none;">
+  Currently logged in as: <span id="username"></span>
+  <br><input type="button" value="Log Out" onclick="logOut();">
+</div>
+<br>
+<div id="makeTwote" style="display: none;">
+  Say something interesting:<br>
+  <textarea id="twote"></textarea><br>
+  <input type="button" value="Twote!" onclick="makeTwote();">
+</div>
+<br>
+<table id="twotes" border="1">
+  <tbody>
+  {{#each twotes}}
+    <tr id="{{this._id}}">
+      <td>
+        <span id="author" onclick="filterTwotes('{{this.author}}');">{{this.author}}</span>, <span id="date">{{this.date}}</span>:
+        <input type="button" value="X" onclick="deleteTwote('{{this._id}}');"><br>
+        <span id="text">{{this.text}}</span><br>
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
+<br>Posts filtered by user:
+<ul id="users">
+{{#each users}}
+  <li id="{{this}}" onclick="filterTwotes('{{this}}', false);">{{this}}</li>
+{{/each}}
+</ul>
+<br><input type="button" value="Undo filter" onclick="filterTwotes('', true);">
