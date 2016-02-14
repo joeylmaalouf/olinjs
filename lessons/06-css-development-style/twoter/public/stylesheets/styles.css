@@ -1,0 +1,53 @@
+body {
+  margin: 0px;
+  background-color: #88BBFF;
+  font-family: "Raleway", sans-serif;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+td {
+  overflow: hidden;
+}
+
+.header {
+  width: 100%;
+  box-shadow: 0px 2px 2px #000000;
+}
+
+.leftcol {
+  margin-top: 25px;
+  margin-left: 50px;
+  width: 70%;
+  float: left;
+}
+
+.rightcol {
+  margin-top: 10px;
+  width: 20%;
+  float: right;
+}
+
+.clickable {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.content {
+  background-color: #DDFFEE;
+}
+
+.highlighted {
+  background-color: #FFFF00;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  float: right;
+}
