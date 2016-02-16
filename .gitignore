@@ -1,3 +1,6 @@
+# Authentication information
+**/oauth.js
+
 # Logs
 **/logs
 **/*.log
