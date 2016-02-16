@@ -4,23 +4,35 @@ var formatDate = function (timestamp) {
 };
 
 var logIn = function () {
-  $("div#logIn").hide();
-  $("div#logOut").show();
-  $("div#logOut span#username").html($("div#logIn input#username").val());
-  $("div#makeTwote").show();
+  $.post("/logIn", {
+    "username": $("div#logIn input#username").val(),
+    "loggedIn": true
+  }).done(function (data, status) {
+    $("div#logIn").hide();
+    $("div#logOut").show();
+    $("div#logOut span#username").html(data.username);
+    $("div#makeTwote").show();
+  }).error(function (data, status) {
+    console.log("Error: " + data);
+  });
 };
 
 var logOut = function () {
-  $("div#logIn").show();
-  $("div#logOut").hide();
-  $("div#makeTwote").hide();
+  $.post("/logOut", {
+    "username": $("div#logOut span#username").html()
+  }).done(function (data, status) {
+    $("div#logIn").show();
+    $("div#logOut").hide();
+    $("div#logOut span#username").html("");
+    $("div#makeTwote").hide();
+  }).error(function (data, status) {
+    console.log("Error: " + data);
+  });
 };
 
 var makeTwote = function () {
   var username = $("div#logOut span#username").html();
   var twote = $("div#makeTwote textarea#twote").val();
-  console.log(username);
-  console.log(twote);
   $.post("/makeTwote", {
     "author": username,
     "text": twote,

@@ -21,6 +21,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", index.home);
 
+app.post("/logIn", index.logIn);
+app.post("/logOut", index.logOut);
 app.post("/makeTwote", index.makeTwote);
 app.post("/deleteTwote", index.deleteTwote);
 

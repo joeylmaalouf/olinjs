@@ -1,4 +1,5 @@
 var Twote = require("../models/twoteModel");
+var TwoterUser = require("../models/twoterUserModel");
 
 var routes = {};
 
@@ -15,6 +16,30 @@ routes.home = function (req, res) {
       "twotes": data,
       "users": users
     });
+  });
+};
+
+routes.logIn = function (req, res) {
+  TwoterUser.findOne({"username": req.body.username}, function (err, data) {
+    if (err) return console.log(err);
+    if (data) {
+      data.loggedIn = true;
+      data.save();
+      res.json(data.toObject());
+    }
+    else {
+      TwoterUser.create(req.body, function (err, data) {
+        if (err) return console.log(err);
+        res.json(data.toObject());
+      });
+    }
+  });
+};
+
+routes.logOut = function (req, res) {
+  TwoterUser.update({"username": req.body.username}, {"loggedIn": false}, {"multi": true}, function (err, data) {
+    if (err) return console.log(err);
+    res.end("");
   });
 };
 
