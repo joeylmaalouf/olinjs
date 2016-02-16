@@ -1,12 +1,10 @@
 <div class="header center">
   <h1>Welcome to Twoter!</h1>
-  <div id="logIn">
-    Username: <input type="text" id="username">
-    <input type="button" value="Log In" onclick="logIn();">
+  <div id="login">
+    <a href="/auth/github">Log in with GitHub</a>
   </div>
-  <div id="logOut" style="display: none;">
-    Currently logged in as: <span id="username"></span>
-    <input type="button" value="Log Out" onclick="logOut();">
+  <div id="logout" style="display: none;">
+    <a href="/logout">Log out</a>
   </div>
   <br>
   <div id="makeTwote" style="display: none;">

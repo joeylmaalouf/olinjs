@@ -8,7 +8,6 @@ var GithubStrategy = require("passport-github").Strategy;
 var config = require("./oauth.js");
 var index = require("./routes/index");
 
-var PORT = process.env.PORT || 3000;
 var MONGOURI = process.env.MONGOURI || "mongodb://localhost/test";
 
 var app = express();
@@ -67,6 +66,4 @@ app.get(
   }
 );
 
-app.listen(PORT, function() {
-  console.log("Application running on port: " + PORT);
-});
+app.listen(3000);
