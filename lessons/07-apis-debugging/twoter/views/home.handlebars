@@ -1,18 +1,22 @@
 <div class="header center">
-  <h1>Welcome to Twoter!</h1>
+  <h1>Hello, {{name}}! Welcome to Twoter!</h1>
+  {{#unless loggedIn}}
   <div id="login">
-    <a href="/auth/github">Log in with GitHub</a>
+    <input type="button" value="Log in with GitHub" onclick="window.location.href='/auth/github'">
   </div>
-  <div id="logout" style="display: none;">
-    <a href="/logout">Log out</a>
+  {{else}}
+  <div id="logout">
+    <input type="button" value="Log out" onclick="window.location.href='/logout'">
   </div>
   <br>
-  <div id="makeTwote" style="display: none;">
+  <div id="makeTwote">
     Say something interesting:<br>
     <textarea id="twote"></textarea><br>
     <input type="button" value="Twote!" onclick="makeTwote();">
   </div>
+  {{/unless}}
 </div>
+{{#if loggedIn}}
 <br>
 <div class="leftcol">
   <table id="twotes" border="1">
@@ -38,3 +42,4 @@
   </ul>
   <br><input type="button" value="Undo filter" onclick="filterTwotes('', true);">
 </div>
+{{/if}}

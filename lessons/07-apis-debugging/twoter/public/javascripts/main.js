@@ -4,10 +4,8 @@ var formatDate = function (timestamp) {
 };
 
 var makeTwote = function () {
-  var username = $("div#logOut span#username").html();
   var twote = $("div#makeTwote textarea#twote").val();
   $.post("/makeTwote", {
-    "author": username,
     "text": twote,
     "date": new Date()
   }).done(function (data, status) {
@@ -29,10 +27,9 @@ var makeTwote = function () {
 
 var deleteTwote = function (id) {
   $.post("/deleteTwote", {
-    "id": id,
-    "username": $("div#logOut span#username").html()
+    "id": id
   }).done(function (data, status) {
-    if ($("#" + data.id + " td span#author").html() === data.username) {
+    if (data.successful) {
       $("#" + data.id).remove();
     }
   }).error(function (data, status) {
