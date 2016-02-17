@@ -4,59 +4,64 @@ var TwoterUser = require("../models/twoterUserModel");
 var routes = {};
 
 routes.home = function (req, res) {
-  Twote.find({}, null, {"sort": {"date": -1}}, function(err, data) {
-    if (err) return console.log(err);
-    var users = [];
-    data.forEach(function (element) {
-      if (users.indexOf(element.author) < 0) {
-        users.push(element.author);
-      }
-    });
-    res.render("home", {
-      "twotes": data,
-      "users": users
-    });
-  });
-};
-
-routes.logIn = function (req, res) {
-  TwoterUser.findOne({"username": req.body.username}, function (err, data) {
-    if (err) return console.log(err);
-    if (data) {
-      data.loggedIn = true;
-      data.save();
-      res.json(data.toObject());
-    }
-    else {
-      TwoterUser.create(req.body, function (err, data) {
+  if (req.session.passport) {
+    Twote.find({}, null, {"sort": {"date": -1}}, function (err, twotes) {
+      if (err) return console.log(err);
+      TwoterUser.find({}, null, {}, function (err, users) {
         if (err) return console.log(err);
-        res.json(data.toObject());
+        var usernames = [];
+        users.forEach(function (element) {
+            usernames.push(element.username);
+        });
+        res.render("home", {
+          "loggedIn": true,
+          "name": req.session.passport.user.username,
+          "twotes": twotes,
+          "users": usernames
+        });
       });
-    }
-  });
-};
-
-routes.logOut = function (req, res) {
-  TwoterUser.update({"username": req.body.username}, {"loggedIn": false}, {"multi": true}, function (err, data) {
-    if (err) return console.log(err);
-    res.end("");
-  });
+    });
+  }
+  else {
+    res.render("home", {
+      "loggedIn": false,
+      "name": "Guest",
+      "twotes": [],
+      "users": []
+    });
+  }
 };
 
 routes.makeTwote = function (req, res) {
-  Twote.create(req.body, function (err, data) {
-    if (err) return console.log(err);
-    res.json(data.toObject());
-  });
+  if (req.session.passport) {
+    req.body.author = req.session.passport.user.username;
+    TwoterUser.count({"username": req.body.author}, function (err, count) {
+      if (!count) {
+        TwoterUser.create({
+          "username": req.body.author,
+          "loggedIn": true
+        }, function (err, twoterUser) {
+          if (err) return console.log(err);
+        });
+      }
+    });
+    Twote.create(req.body, function (err, twote) {
+      if (err) return console.log(err);
+      res.json(twote.toObject());
+    });
+  }
 };
 
 routes.deleteTwote = function (req, res) {
   Twote.remove({
     "_id": req.body.id,
-    "author": req.body.username
-  }, function (err) {
+    "author": req.session.passport.user.username
+  }, function (err, obj) {
     if (err) return console.log(err);
-    res.json(req.body);
+    res.json({
+      "id": req.body.id,
+      "successful": obj.result.n === 1
+    });
   });
 };
 

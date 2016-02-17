@@ -3,38 +3,9 @@ var formatDate = function (timestamp) {
   return timestamp.toDateString() + " " + timestamp.toTimeString();
 };
 
-var logIn = function () {
-  $.post("/logIn", {
-    "username": $("div#logIn input#username").val(),
-    "loggedIn": true
-  }).done(function (data, status) {
-    $("div#logIn").hide();
-    $("div#logOut").show();
-    $("div#logOut span#username").html(data.username);
-    $("div#makeTwote").show();
-  }).error(function (data, status) {
-    console.log("Error: " + data);
-  });
-};
-
-var logOut = function () {
-  $.post("/logOut", {
-    "username": $("div#logOut span#username").html()
-  }).done(function (data, status) {
-    $("div#logIn").show();
-    $("div#logOut").hide();
-    $("div#logOut span#username").html("");
-    $("div#makeTwote").hide();
-  }).error(function (data, status) {
-    console.log("Error: " + data);
-  });
-};
-
 var makeTwote = function () {
-  var username = $("div#logOut span#username").html();
   var twote = $("div#makeTwote textarea#twote").val();
   $.post("/makeTwote", {
-    "author": username,
     "text": twote,
     "date": new Date()
   }).done(function (data, status) {
@@ -56,10 +27,9 @@ var makeTwote = function () {
 
 var deleteTwote = function (id) {
   $.post("/deleteTwote", {
-    "id": id,
-    "username": $("div#logOut span#username").html()
+    "id": id
   }).done(function (data, status) {
-    if ($("#" + data.id + " td span#author").html() === data.username) {
+    if (data.successful) {
       $("#" + data.id).remove();
     }
   }).error(function (data, status) {
