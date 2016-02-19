@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require("express");
 var path = require("path");
 var index = require("./routes/index");
 
@@ -9,6 +9,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", index.home);
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("Application running on port:", PORT);
 });
