@@ -1,10 +1,10 @@
-var request = require('supertest');
-var app = require('./../../app.js');
+var request = require("supertest");
+var app = require("./../../app.js");
 
 describe("The app", function() {
-  it('should return 200 OK on GET /', function(done) {
+  it("should return 200 OK on GET /", function(done) {
     request(app)
-      .get('/')
+      .get("/")
       .expect(200)
       .end(function(err, res) {
         // Supertest lets us end tests this way...
@@ -16,31 +16,31 @@ describe("The app", function() {
       });
   });
 
-  it('should respond with the correct html on GET /', function(done) {
+  it("should respond with the correct html on GET /", function(done) {
     request(app)
-      .get('/')
-      .expect('Content-Type', 'text/html; charset=utf-8')
-      .expect('Content-Length', '515', done); // ...or this way, inline!
+      .get("/")
+      .expect("Content-Type", "text/html; charset=utf-8")
+      .expect("Content-Length", "515", done); // ...or this way, inline!
   });
 
-  it('should return 200 OK on GET /cats', function(done) {
+  it("should return 200 OK on GET /cats", function(done) {
     request(app)
-      .get('/cats')
+      .get("/cats")
       .expect(200, done);
   });
 
-  it('should respond with the correct html on GET /cats', function(done) {
+  it("should respond with the correct html on GET /cats", function(done) {
     request(app)
-      .get('/cats')
-      .expect('Content-Type', 'text/html; charset=utf-8')
-      .expect('Content-Length', '151', done);
+      .get("/cats")
+      .expect("Content-Type", "text/html; charset=utf-8")
+      .expect("Content-Length", "5282", done);
   });
 
   // What other routes can you test?
 
-  it('should return 404 on GET /notaroute', function(done) {
+  it("should return 404 on GET /notaroute", function(done) {
     request(app)
-      .get('/notaroute')
+      .get("/notaroute")
       .expect(404, done);
   });
 });

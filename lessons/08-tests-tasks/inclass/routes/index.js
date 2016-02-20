@@ -4,8 +4,8 @@ module.exports.home = function(req, res){
     "/cats",
     "/cats/delete/old",
     "/cats/bycolor/blue",
-    "/cats/bycolor/green",
-    "/cats/bycolor/orange"
+    "/cats/bycolor/lavender",
+    "/cats/bycolor/crimson"
     ]
   });
 };

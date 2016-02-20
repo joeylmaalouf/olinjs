@@ -1,0 +1,19 @@
+<h3>Place An Order</h3>
+<table id="ingredients">
+  {{#each ingredients}}
+  {{#if this.inStock}}
+  <tr id="{{this._id}}" class="inStock">
+    <td><span class="name">{{this.name}}</span>: $<span class="price">{{this.price}}</span></td>
+    <td><input type="checkbox" onclick="updateOrder();"></td>
+  {{else}}
+  <tr id="{{this._id}}" class="outOfStock">
+    <td style="text-decoration: line-through"><span class="name">{{this.name}}</span>: $<span class="price">{{this.price}}</span></td>
+    <td><input type="checkbox" disabled></td>
+  {{/if}}
+  </tr>
+  {{/each}}
+</table>
+<p id="price">Total: $<span class="price">0.00</span></p>
+Name: <input type="text" id="name">
+<input type="button" value="Submit" onclick="placeOrder();">
+<h4 id="message"></h4>
