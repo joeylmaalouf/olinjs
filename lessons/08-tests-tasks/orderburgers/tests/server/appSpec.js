@@ -1,7 +1,7 @@
 var request = require("supertest");
 var app = require("./../../app.js");
 
-describe("The app", function () {
+describe("The server", function () {
 
   it("should return 200 OK on GET /", function (done) {
     request(app)
