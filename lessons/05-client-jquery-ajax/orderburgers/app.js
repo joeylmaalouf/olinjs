@@ -35,3 +35,7 @@ app.post("/completeOrder", index.completeOrder);
 app.listen(PORT, function() {
   console.log("Application running on port: " + PORT);
 });
+
+
+// Notes
+// denote that when you place an order with no ingredients in it --> no order is possible to be placed

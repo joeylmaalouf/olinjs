@@ -92,6 +92,7 @@ var updateOrder = function () {
   $("#price").find(".price").html(sum.toFixed(2));
 };
 
+
 var placeOrder = function() {
   var name = $("#name").val();
   var ingredients = [];
@@ -113,6 +114,8 @@ var placeOrder = function() {
       $("#ingredients").find("tr").each(function () {
         $(this).find("input:checkbox").prop("checked", false);
       });
+      // Would be good to display a message that one could not 
+      // place an order if no iterms are added to the list
     }).error(function (data, status) {
       console.log("Error: " + data);
     });
