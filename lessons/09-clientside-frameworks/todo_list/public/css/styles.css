@@ -1,0 +1,13 @@
+body {
+  font-family: "Raleway", sans-serif;
+}
+
+.active {
+  text-decoration: none;
+  color: #000000;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #666666;
+}

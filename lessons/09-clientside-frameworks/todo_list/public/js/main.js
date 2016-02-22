@@ -11,9 +11,13 @@ app.config(function ($routeProvider, $locationProvider) {
 app.controller("mainController", function ($scope, $http) {
   $scope.textInput = "";
   $scope.filterVal = null;
+  $scope.numActive = 0;
   $scope.getTasks = function () {
     $http.get("/getTasks").then(
-      function (res) { $scope.tasks = res.data; },
+      function (res) {
+        $scope.tasks = res.data;
+        $scope.numActive = res.data.filter(function (obj) { return !obj.completed; }).length;
+      },
       function (err) { console.log("Error: " + err); }
     );
   };
@@ -31,10 +35,13 @@ app.controller("mainController", function ($scope, $http) {
     );
   };
   $scope.editTask = function (id, text) {
-    $http.post("/editTask", {"id": id, "text": text}).then(
-      function (res) { $scope.getTasks(); },
-      function (err) { console.log("Error: " + err); }
-    );
+    text = prompt("New text:", text || "");
+    if (text) {
+      $http.post("/editTask", {"id": id, "text": text}).then(
+        function (res) { $scope.getTasks(); },
+        function (err) { console.log("Error: " + err); }
+      );
+    }
   };
   $scope.toggleTask = function (id) {
     $http.post("/toggleTask", {"id": id}).then(

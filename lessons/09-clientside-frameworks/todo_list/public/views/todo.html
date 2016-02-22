@@ -1,21 +1,24 @@
-<h1>To-Do List</h1>
+<h1>To-Do List (<span ng-bind="numActive"></span> item{{numActive==1 ? "" : "s"}} left)</h1>
 <input type="text" ng-model="textInput">
 <input type="button" ng-click="makeTask();" value="Submit">
-</br>
+</br></br>
 <table>
   <tr ng-repeat="task in tasks | filter:filterVal">
     <td>
       <input type="checkbox" ng-click="toggleTask(task._id);" ng-checked="task.completed">
     </td>
     <td>
-      {{task.text}}
+      <a ng-class="(task.completed) ? 'completed' : 'active'">{{task.text}}</a>
     </td>
     <td>
-      <input type="button" ng-click="deleteTask(task._id);" value="X">
+      <input type="button" ng-click="editTask(task._id, task.text);" value="✎">
+    </td>
+    <td>
+      <input type="button" ng-click="deleteTask(task._id);" value="✗">
     </td>
   </tr>
 </table>
-<h4>Filter by:</h4>
+<br><a>Filter by:</a>
 <input type="button" ng-click="filterTasks(null, true);" value="All">
 <input type="button" ng-click="filterTasks(false, null);" value="Active">
 <input type="button" ng-click="filterTasks(true, null);" value="Completed">
