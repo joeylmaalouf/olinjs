@@ -10,9 +10,10 @@ app.config(function ($routeProvider, $locationProvider) {
 
 app.controller("mainController", function ($scope, $http) {
   $scope.textInput = "";
+  $scope.filterVal = null;
   $scope.getTasks = function () {
     $http.get("/getTasks").then(
-      function (res) { $scope.tasks = res.data; console.log(res); },
+      function (res) { $scope.tasks = res.data; },
       function (err) { console.log("Error: " + err); }
     );
   };
@@ -21,6 +22,7 @@ app.controller("mainController", function ($scope, $http) {
       function (res) { $scope.getTasks(); },
       function (err) { console.log("Error: " + err); }
     );
+    $scope.textInput = "";
   };
   $scope.deleteTask = function (id) {
     $http.post("/deleteTask", {"id": id}).then(
@@ -34,17 +36,15 @@ app.controller("mainController", function ($scope, $http) {
       function (err) { console.log("Error: " + err); }
     );
   };
-  $scope.setActive = function (id) {
-    $http.post("/setActive", {"id": id}).then(
+  $scope.toggleTask = function (id) {
+    $http.post("/toggleTask", {"id": id}).then(
       function (res) { $scope.getTasks(); },
       function (err) { console.log("Error: " + err); }
     );
   };
-  $scope.setDone = function (id) {
-    $http.post("/setDone", {"id": id}).then(
-      function (res) { $scope.getTasks(); },
-      function (err) { console.log("Error: " + err); }
-    );
+  $scope.filterTasks = function (completed, reset) {
+    if (reset) { $scope.filterVal = null; }
+    else { $scope.filterVal = completed; }
   };
   $scope.getTasks();
 });

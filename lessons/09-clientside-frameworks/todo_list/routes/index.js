@@ -39,16 +39,13 @@ routes.editTask = function (req, res) {
   });
 };
 
-routes.setActive = function (req, res) {
-  Task.findOneAndUpdate({"_id": req.body.id}, {"completed": false}, null, function (err, task) {
+routes.toggleTask = function (req, res) {
+  Task.findById(req.body.id, function (err, task) {
     if (err) return console.log(err);
-    res.json(task);
-  });
-};
-
-routes.setDone = function (req, res) {
-  Task.findOneAndUpdate({"_id": req.body.id}, {"completed": true}, null, function (err, task) {
-    if (err) return console.log(err);
+    task.completed = !task.completed;
+    task.save(function (err) {
+      if (err) return console.log(err);
+    });
     res.json(task);
   });
 };
