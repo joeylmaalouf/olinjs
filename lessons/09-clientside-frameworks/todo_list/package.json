@@ -4,7 +4,9 @@
   "description": "Olin.js lesson9 in_class_hello example.",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.13.4"
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.4"
   },
   "engines": {
     "node": "0.10.x"
