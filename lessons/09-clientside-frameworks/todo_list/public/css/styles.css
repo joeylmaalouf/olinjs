@@ -2,6 +2,13 @@ body {
   font-family: "Raleway", sans-serif;
 }
 
+input[type=checkbox] {
+  -ms-transform: scale(1.5); /* Internet Explorer */
+  -moz-transform: scale(1.5); /* Firefox */
+  -webkit-transform: scale(1.5); /* Chrome, Safari */
+  padding: 10px;
+}
+
 .active {
   text-decoration: none;
   color: #000000;
