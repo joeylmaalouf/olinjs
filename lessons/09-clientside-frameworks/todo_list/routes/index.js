@@ -4,7 +4,7 @@ var Task = require("../models/taskModel");
 var routes = {};
 
 routes.home = function (req, res) {
-	res.sendFile("main.html", { "root": path.join(__dirname, "../public") });
+  res.sendFile("main.html", { "root": path.join(__dirname, "../public") });
 };
 
 routes.getTasks = function (req, res) {
