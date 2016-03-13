@@ -6,4 +6,5 @@ var twoteSchema = mongoose.Schema({
   date: Date
 });
 
+// is there a reason you are explicitly stating the colletion
 module.exports = mongoose.model("Twote", twoteSchema, "twotes");

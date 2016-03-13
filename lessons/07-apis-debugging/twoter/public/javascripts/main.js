@@ -9,6 +9,7 @@ var makeTwote = function () {
     "text": twote,
     "date": new Date()
   }).done(function (data, status) {
+    // I might use the template, clone, modify, append pattern for an example see flex class 5 inclass
     $("table#twotes tbody").prepend(
       "      <tr id=\"" + data._id + "\" class=\"content\">\n" +
       "        <td>\n" +

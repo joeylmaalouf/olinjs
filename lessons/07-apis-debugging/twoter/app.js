@@ -14,9 +14,11 @@ var MONGOURI = process.env.MONGOURI || "mongodb://localhost/test";
 var app = express();
 
 passport.serializeUser(function (user, done) {
+  // Normally we serialize the user id
   done(null, user);
 });
 passport.deserializeUser(function (obj, done) {
+  // and deserialize it by finding by id
   done(null, obj);
 });
 
@@ -25,6 +27,7 @@ passport.use(new GithubStrategy({
   clientSecret: config.github.clientSecret,
   callbackURL: config.github.callbackURL
   },
+  // You should probably be finding or creating a user here
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
       return done(null, profile);
