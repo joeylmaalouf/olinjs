@@ -1,0 +1,52 @@
+Application running on port: 3000
+  The server
+    ✓ should return 200 OK on GET / (58ms)
+    ✓ should respond with the correct HTML on GET /
+    ✓ should return 200 OK on GET /ingredients
+    1) should respond with the correct HTML on GET /ingredients
+    ✓ should return 200 OK on GET /order
+    2) should respond with the correct HTML on GET /order
+    ✓ should return 200 OK on GET /kitchen
+    ✓ should respond with the correct HTML on GET /kitchen
+    ✓ should return 404 on GET /notaroute
+
+  The ingredient model
+    ✓ should be able to create ingredients
+    ✓ should be able to remove ingredients
+
+  The order model
+    ✓ should be able to create orders
+    ✓ should be able to remove orders
+
+
+  11 passing (213ms)
+  2 failing
+
+  1) The server should respond with the correct HTML on GET /ingredients:
+     Error: expected "Content-Length" of "5402", got "693"
+      at Test._assertHeader (node_modules/supertest/lib/test.js:215:12)
+      at Test._assertFunction (node_modules/supertest/lib/test.js:247:11)
+      at Test.assert (node_modules/supertest/lib/test.js:148:18)
+      at Server.assert (node_modules/supertest/lib/test.js:127:12)
+      at emitCloseNT (net.js:1527:8)
+
+  2) The server should respond with the correct HTML on GET /order:
+     Error: expected "Content-Length" of "2574", got "664"
+      at Test._assertHeader (node_modules/supertest/lib/test.js:215:12)
+      at Test._assertFunction (node_modules/supertest/lib/test.js:247:11)
+      at Test.assert (node_modules/supertest/lib/test.js:148:18)
+      at Server.assert (node_modules/supertest/lib/test.js:127:12)
+      at emitCloseNT (net.js:1527:8)
+
+
+
+=============================================================================
+Writing coverage object [/home/swalters/Classes/6-Spring-2016/feedback/joey/lessons/08-tests-tasks/orderburgers/coverage/coverage.json]
+Writing coverage reports at [/home/swalters/Classes/6-Spring-2016/feedback/joey/lessons/08-tests-tasks/orderburgers/coverage]
+=============================================================================
+
+=============================== Coverage summary ===============================
+Statements   : 60% ( 66/110 )
+Branches     : 20.59% ( 7/34 )
+Functions    : 36% ( 9/25 )
+Lines        : 66.67% ( 66/99 )
